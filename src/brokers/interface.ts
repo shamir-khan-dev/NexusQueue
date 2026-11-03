@@ -1,5 +1,7 @@
 import { Task, TaskStatus, WorkerInfo, QueueStats } from '../core/types.js';
 
+export const BROKER_INTERFACE_VERSION = '1.0.0';
+
 export interface IBroker {
   /**
    * Enqueues a new or delayed task.
@@ -95,4 +97,3 @@ export interface IBroker {
    */
   close(): Promise<void>;
 }
-

@@ -2,13 +2,13 @@ import { NexusQueue } from './core/queue.js';
 import { Worker } from './core/worker.js';
 import { MemoryBroker } from './brokers/memory-broker.js';
 import { RedisBroker } from './brokers/redis-broker.js';
-import { IBroker } from './brokers/interface.js';
+import type { IBroker } from './brokers/interface.js';
 import { PriorityHeap } from './core/priority-heap.js';
 import { calculateBackoff, calculateDecorrelatedJitter } from './core/backoff.js';
 import {
   TokenBucketRateLimiter,
   SlidingWindowRateLimiter,
-  RateLimiterResult,
+  type RateLimiterResult,
 } from './core/rate-limiter.js';
 import { MetricsCollector, globalMetrics } from './telemetry/metrics.js';
 import { ZombieSupervisor } from './core/supervisor.js';
@@ -16,10 +16,10 @@ import { WorkflowEngine } from './scheduler/workflow.js';
 import { CronScheduler } from './scheduler/cron.js';
 import { createDashboardServer } from './dashboard/server.js';
 import {
-  Task,
-  TaskOptions,
+  type Task,
+  type TaskOptions,
   TaskPriority,
-  TaskStatus,
+  type TaskStatus,
   createTask,
 } from './core/types.js';
 
@@ -29,28 +29,36 @@ export {
   Worker,
   MemoryBroker,
   RedisBroker,
-  IBroker,
   PriorityHeap,
   calculateBackoff,
   calculateDecorrelatedJitter,
   TokenBucketRateLimiter,
   SlidingWindowRateLimiter,
-  RateLimiterResult,
   MetricsCollector,
   globalMetrics,
   ZombieSupervisor,
   WorkflowEngine,
   CronScheduler,
   createDashboardServer,
-  Task,
-  TaskOptions,
   TaskPriority,
-  TaskStatus,
   createTask,
 };
 
+export type {
+  IBroker,
+  RateLimiterResult,
+  Task,
+  TaskOptions,
+  TaskStatus,
+};
+
 // If run directly via `npm start` / `tsx src/index.ts`, launch standalone cluster & dashboard
-if (process.argv[1]?.endsWith('src/index.ts') || process.argv[1]?.endsWith('dist/index.js')) {
+const entryArg = process.argv[1]?.replace(/\\/g, '/');
+if (
+  entryArg?.endsWith('src/index.ts') ||
+  entryArg?.endsWith('dist/index.js') ||
+  process.env.LAUNCH_STANDALONE === 'true'
+) {
   console.log('⚡ Starting NexusQueue Enterprise Engine & Telemetry Dashboard...');
 
   const broker = new MemoryBroker();
