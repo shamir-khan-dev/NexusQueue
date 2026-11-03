@@ -30,6 +30,14 @@
   ],
   "author": "Shamir Khan",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shamir-khan-dev/NexusQueue.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shamir-khan-dev/NexusQueue/issues"
+  },
+  "homepage": "https://github.com/shamir-khan-dev/NexusQueue#readme",
   "dependencies": {
     "cron-parser": "^4.9.0",
     "express": "^4.21.2",

@@ -1,9 +1,10 @@
 # NexusQueue ⚡
 ### Enterprise-Grade Distributed Asynchronous Task & Workflow Engine
+[![CI](https://github.com/shamir-khan-dev/NexusQueue/actions/workflows/ci.yml/badge.svg)](https://github.com/shamir-khan-dev/NexusQueue/actions)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.7-blue.svg?style=flat&logo=typescript)](https://www.typescriptlang.org/)
 [![Node.js](https://img.shields.io/badge/Node.js-22.x-green.svg?style=flat&logo=node.js)](https://nodejs.org/)
 [![Tests](https://img.shields.io/badge/Tests-22%20Passing-success.svg?style=flat)](#automated-test-suite)
-[![License](https://img.shields.io/badge/License-MIT-purple.svg?style=flat)](#license)
+[![License: MIT](https://img.shields.io/badge/License-MIT-purple.svg?style=flat)](LICENSE)
 
 NexusQueue is a distributed background task orchestration engine engineered for high throughput, strict at-least-once delivery, zero data-loss crash resilience, and real-time observability. 
 
@@ -321,4 +322,7 @@ const worker = queue.process(async (task) => {
 ---
 
 ## 📜 License
-MIT License. Created by [Shamir Khan](https://github.com/shamir-khan-dev).
+This project is open-sourced under the [MIT License](LICENSE).  
+Copyright (c) 2026 [Shamir Khan](https://github.com/shamir-khan-dev).
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
