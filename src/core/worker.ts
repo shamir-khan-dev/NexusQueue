@@ -223,6 +223,19 @@ export class Worker extends EventEmitter {
     this.emit('crashed', { id: this.id });
   }
 
+  /**
+   * Restores a crashed worker back to healthy operation.
+   */
+  restart(): void {
+    if (this.isSimulatingCrash) {
+      this.isSimulatingCrash = false;
+      this.isRunning = false;
+      this.activeTasks.clear();
+      this.start();
+      this.emit('restarted', { id: this.id });
+    }
+  }
+
   async stop(drainTimeoutMs: number = 5000): Promise<void> {
     this.isRunning = false;
 

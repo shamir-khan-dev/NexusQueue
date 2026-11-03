@@ -7,3 +7,4 @@ scrape_configs:
     static_configs:
       - targets: ['nexusqueue:3000']
     metrics_path: '/metrics'
+

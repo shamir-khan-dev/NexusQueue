@@ -43,3 +43,4 @@ describe('MetricsCollector & Latency Percentiles', () => {
     assert.ok(prom.includes('nexusqueue_zombies_reclaimed_total 1'));
   });
 });
+

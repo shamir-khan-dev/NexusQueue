@@ -14,7 +14,7 @@
     "benchmark": "tsx examples/benchmark.ts",
     "example:producer": "tsx examples/producer.ts",
     "example:worker": "tsx examples/worker.ts",
-    "build": "tsc"
+    "build": "tsc && node -e \"import('node:fs').then(fs => fs.cpSync('src/dashboard/public', 'dist/dashboard/public', {recursive: true}))\""
   },
   "keywords": [
     "task-queue",

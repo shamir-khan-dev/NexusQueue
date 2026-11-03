@@ -66,7 +66,7 @@ if (process.argv[1]?.endsWith('src/index.ts') || process.argv[1]?.endsWith('dist
   cronScheduler.start();
 
   // Track worker crash simulation callbacks
-  const activeWorkers: Array<{ id: string; simulateCrash: () => void }> = [];
+  const activeWorkers: Array<{ id: string; simulateCrash: () => void; restart: () => void }> = [];
 
   // Spawn Worker 1 (Fast Transaction Worker)
   const worker1 = queue.process(
@@ -89,7 +89,11 @@ if (process.argv[1]?.endsWith('src/index.ts') || process.argv[1]?.endsWith('dist
     },
     { id: 'worker-node-alpha', concurrency: 5 }
   );
-  activeWorkers.push({ id: worker1.id, simulateCrash: () => worker1.simulateCrash() });
+  activeWorkers.push({
+    id: worker1.id,
+    simulateCrash: () => worker1.simulateCrash(),
+    restart: () => worker1.restart(),
+  });
 
   // Spawn Worker 2 (Heavy Compute & ML Worker)
   const worker2 = queue.process(
@@ -100,7 +104,11 @@ if (process.argv[1]?.endsWith('src/index.ts') || process.argv[1]?.endsWith('dist
     },
     { id: 'worker-node-beta', concurrency: 3 }
   );
-  activeWorkers.push({ id: worker2.id, simulateCrash: () => worker2.simulateCrash() });
+  activeWorkers.push({
+    id: worker2.id,
+    simulateCrash: () => worker2.simulateCrash(),
+    restart: () => worker2.restart(),
+  });
 
   // Start HTTP & WebSocket Telemetry Dashboard
   const PORT = Number(process.env.PORT || 3000);
@@ -126,3 +134,4 @@ if (process.argv[1]?.endsWith('src/index.ts') || process.argv[1]?.endsWith('dist
     console.log('✔ Cluster operational. Ready for tasks.\n');
   });
 }
+

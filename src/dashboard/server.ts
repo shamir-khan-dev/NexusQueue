@@ -15,7 +15,7 @@ export interface DashboardServerOptions {
   port?: number;
   broker: IBroker;
   workflowEngine?: WorkflowEngine;
-  workers?: Array<{ id: string; simulateCrash: () => void }>;
+  workers?: Array<{ id: string; simulateCrash: () => void; restart?: () => void }>;
 }
 
 export function createDashboardServer(options: DashboardServerOptions) {
@@ -159,6 +159,27 @@ export function createDashboardServer(options: DashboardServerOptions) {
 
     worker.simulateCrash();
     res.json({ success: true, message: `Worker ${id} crash simulated. Watchdog will reclaim tasks.` });
+  });
+
+  app.post('/api/workers/:id/restart', async (req: Request, res: Response) => {
+    const id = String(req.params.id);
+    const worker = workers.find((w) => w.id === id);
+    if (!worker) {
+      res.status(404).json({ error: `Worker ${id} not found in active pool` });
+      return;
+    }
+
+    if (worker.restart) {
+      worker.restart();
+    }
+    res.json({ success: true, message: `Worker ${id} restarted.` });
+  });
+
+  app.post('/api/workers/restart-all', async (req: Request, res: Response) => {
+    for (const w of workers) {
+      if (w.restart) w.restart();
+    }
+    res.json({ success: true, message: 'All workers restarted.' });
   });
 
   app.post('/api/workflows/sample-dag', async (req: Request, res: Response) => {

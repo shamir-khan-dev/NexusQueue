@@ -62,3 +62,4 @@ export class ZombieSupervisor extends EventEmitter {
     this.emit('stopped');
   }
 }
+
