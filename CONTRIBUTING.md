@@ -40,3 +40,4 @@ Thank you for your interest in contributing to NexusQueue!
 ## License
 
 By contributing to NexusQueue, you agree that your contributions will be licensed under the [MIT License](LICENSE).
+
