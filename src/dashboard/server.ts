@@ -228,6 +228,10 @@ export function createDashboardServer(options: DashboardServerOptions) {
     }
   });
 
+  app.get('/health', (req: Request, res: Response) => {
+    res.json({ status: 'UP', service: 'NexusQueue', timestamp: Date.now() });
+  });
+
   app.get('/metrics', (req: Request, res: Response) => {
     res.setHeader('Content-Type', 'text/plain; version=0.0.4');
     res.send(globalMetrics.toPrometheusFormat());
