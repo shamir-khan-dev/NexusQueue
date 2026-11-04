@@ -1,0 +1,12 @@
+{
+  "totalJobs": 5000,
+  "concurrency": 50,
+  "enqueueThroughputJobsPerSec": 119048,
+  "processingThroughputJobsPerSec": 3418,
+  "latencyMs": {
+    "p50": 699,
+    "p90": 1294,
+    "p95": 1372,
+    "p99": 1435
+  }
+}

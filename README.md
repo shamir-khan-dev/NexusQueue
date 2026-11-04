@@ -4,6 +4,8 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.7-blue.svg?style=flat&logo=typescript)](https://www.typescriptlang.org/)
 [![Node.js](https://img.shields.io/badge/Node.js-22.x-green.svg?style=flat&logo=node.js)](https://nodejs.org/)
 [![Tests](https://img.shields.io/badge/Tests-22%20Passing-success.svg?style=flat)](#automated-test-suite)
+[![Throughput](https://img.shields.io/badge/Enqueue-119k%20jobs%2Fsec-blue.svg?style=flat)](benchmarks/benchmark_results.json)
+[![Processing](https://img.shields.io/badge/Process-3.4k%20tasks%2Fsec-orange.svg?style=flat)](benchmarks/benchmark_results.json)
 [![License: MIT](https://img.shields.io/badge/License-MIT-purple.svg?style=flat)](LICENSE)
 
 NexusQueue is a distributed background task orchestration engine engineered for high throughput, strict at-least-once delivery, zero data-loss crash resilience, and real-time observability. 

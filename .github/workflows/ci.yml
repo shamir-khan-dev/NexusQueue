@@ -33,3 +33,6 @@ jobs:
       - name: Run Test Suite
         run: npm test
 
+      - name: Run Architecture Benchmark Verification
+        run: npm run benchmark
+

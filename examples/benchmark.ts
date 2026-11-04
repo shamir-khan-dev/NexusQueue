@@ -79,6 +79,32 @@ async function runBenchmark() {
   console.log(`p99 Latency           : ${getP(99)} ms`);
   console.log('======================================================\n');
 
+  // Save persistent benchmark report
+  try {
+    const fs = await import('node:fs');
+    const path = await import('node:path');
+    const outDir = path.resolve('benchmarks');
+    if (!fs.existsSync(outDir)) {
+      fs.mkdirSync(outDir, { recursive: true });
+    }
+    const report = {
+      totalJobs: TOTAL_JOBS,
+      concurrency: CONCURRENCY,
+      enqueueThroughputJobsPerSec: enqueueThroughput,
+      processingThroughputJobsPerSec: processThroughput,
+      latencyMs: {
+        p50: getP(50),
+        p90: getP(90),
+        p95: getP(95),
+        p99: getP(99),
+      },
+    };
+    fs.writeFileSync(path.join(outDir, 'benchmark_results.json'), JSON.stringify(report, null, 2));
+    console.log(`[OK] Benchmark report saved to benchmarks/benchmark_results.json`);
+  } catch (err) {
+    console.warn('Failed to save benchmark report:', err);
+  }
+
   await queue.close();
   await broker.close();
   process.exit(0);
