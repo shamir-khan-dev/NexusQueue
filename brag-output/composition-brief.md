@@ -68,3 +68,4 @@ Use the Hyperframes CLI to scaffold, lint, check, and render the composition in 
 Run `npx hyperframes check` before render.
 Render to `brag-output/brag.mp4`.
 Extract the best frame as `brag-output/brag.jpg`.
+

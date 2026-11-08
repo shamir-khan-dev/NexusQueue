@@ -76,3 +76,4 @@ Visual: Live queue conveyor belt and latency SLA grid (p50: 34ms, p99: 42ms, Thr
 Sequential: Counters roll up quickly to final numbers -> Logo lockup resolves.
 Audio intent: Full electronic resolve and fade.
 Transition mood: Terminal hold.
+
