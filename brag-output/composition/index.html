@@ -1,0 +1,482 @@
+<!doctype html>
+<html lang="en" data-resolution="landscape">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1920, height=1080" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+  <style>
+    :root {
+      --bg: #090c13;
+      --surface-base: #111726;
+      --surface-raised: #182032;
+      --card-border: rgba(255, 255, 255, 0.12);
+      --text-main: #ffffff;
+      --text-secondary: #e2e8f0;
+      --text-muted: #94a3b8;
+      --accent: #38bdf8;
+      --success: #34d399;
+      --warning: #fbbf24;
+      --danger: #f87171;
+      --font-display: 'Plus Jakarta Sans', -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      background: var(--bg);
+      color: var(--text-main);
+      font-family: var(--font-display);
+    }
+
+    #root {
+      width: 1920px;
+      height: 1080px;
+      position: relative;
+      background: var(--bg);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 60px 80px;
+    }
+
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--card-border);
+      padding-bottom: 24px;
+    }
+
+    .brand-cluster {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .brand-mark {
+      width: 48px;
+      height: 48px;
+      border-radius: 10px;
+      background: var(--surface-raised);
+      border: 1px solid var(--card-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+    }
+
+    .brand-title {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--text-main);
+    }
+
+    .brand-tag {
+      font-size: 16px;
+      padding: 4px 12px;
+      border-radius: 6px;
+      background: var(--surface-raised);
+      border: 1px solid var(--card-border);
+      color: var(--text-secondary);
+      font-family: var(--font-mono);
+      font-weight: 600;
+    }
+
+    .system-status {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: var(--font-mono);
+      font-size: 18px;
+      color: var(--success);
+      background: var(--surface-raised);
+      padding: 8px 20px;
+      border-radius: 6px;
+      border: 1px solid var(--card-border);
+    }
+
+    .status-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--success);
+    }
+
+    .stage-container {
+      flex: 1;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 40px 0;
+    }
+
+    .scene {
+      position: absolute;
+      width: 100%;
+      max-width: 1400px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .scene-header-tag {
+      font-family: var(--font-mono);
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 8px 18px;
+      border-radius: 8px;
+      background: var(--surface-raised);
+      border: 1px solid var(--card-border);
+      margin-bottom: 24px;
+    }
+
+    .scene-headline {
+      font-size: 56px;
+      font-weight: 800;
+      letter-spacing: -1.5px;
+      line-height: 1.15;
+      margin-bottom: 24px;
+      max-width: 1240px;
+      color: var(--text-main);
+    }
+
+    .scene-sub {
+      font-size: 28px;
+      color: var(--text-secondary);
+      max-width: 1000px;
+      line-height: 1.45;
+      margin-bottom: 40px;
+    }
+
+    .card-terminal {
+      background: var(--surface-base);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 32px 40px;
+      width: 100%;
+      max-width: 1100px;
+      text-align: left;
+    }
+
+    .terminal-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--card-border);
+      padding-bottom: 16px;
+      margin-bottom: 20px;
+      font-family: var(--font-mono);
+      font-size: 22px;
+      color: var(--text-secondary);
+    }
+
+    .terminal-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 24px;
+    }
+    .terminal-row:last-child { border-bottom: none; }
+
+    .dag-flow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 28px;
+      width: 100%;
+      margin-top: 20px;
+    }
+
+    .dag-node {
+      background: var(--surface-base);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 24px 28px;
+      width: 320px;
+      text-align: left;
+    }
+
+    .dag-parallel-group {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .dag-arrow {
+      color: var(--accent);
+      font-size: 32px;
+      font-weight: 700;
+    }
+
+    .stats-trio {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      width: 100%;
+      max-width: 1200px;
+    }
+
+    .stat-box {
+      background: var(--surface-base);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 32px 28px;
+      text-align: left;
+    }
+
+    .stat-box-label {
+      font-size: 20px;
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+      font-weight: 500;
+    }
+
+    .stat-box-val {
+      font-size: 56px;
+      font-weight: 800;
+      letter-spacing: -1.5px;
+      font-family: var(--font-mono);
+      color: var(--text-main);
+    }
+
+    .stat-box-sub {
+      font-size: 18px;
+      color: var(--text-secondary);
+      margin-top: 8px;
+    }
+
+    .bottom-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--card-border);
+      padding-top: 24px;
+      font-family: var(--font-mono);
+      font-size: 18px;
+      color: var(--text-secondary);
+    }
+
+    .badge-chip {
+      padding: 4px 12px;
+      border-radius: 6px;
+      font-size: 18px;
+      font-weight: 600;
+      font-family: var(--font-mono);
+    }
+    .badge-chip.danger { background: rgba(248, 113, 113, 0.2); color: #fecaca; border: 1px solid rgba(248, 113, 113, 0.4); }
+    .badge-chip.success { background: rgba(52, 211, 153, 0.2); color: #a7f3d0; border: 1px solid rgba(52, 211, 153, 0.4); }
+    .badge-chip.accent { background: rgba(56, 189, 248, 0.2); color: #bae6fd; border: 1px solid rgba(56, 189, 248, 0.4); }
+  </style>
+</head>
+<body>
+
+  <div
+    id="root"
+    data-composition-id="main"
+    data-start="0"
+    data-duration="20"
+    data-width="1920"
+    data-height="1080"
+  >
+    <audio id="bgm" class="clip" data-track-index="1" data-start="0" data-duration="20" data-volume="0.8" src="assets/music/track.mp3"></audio>
+
+    <div class="top-bar">
+      <div class="brand-cluster">
+        <div class="brand-mark">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        </div>
+        <div class="brand-title">
+          NexusQueue <span class="brand-tag">v1.0 Production</span>
+        </div>
+      </div>
+      <div class="system-status">
+        <span class="status-dot"></span>
+        <span>TELEMETRY STREAM ACTIVE</span>
+      </div>
+    </div>
+
+    <div class="stage-container">
+
+      <!-- Scene 1: The Worker Crash (0s to 5s) -->
+      <div class="scene clip" id="scene-1" data-track-index="0" data-start="0" data-duration="5" data-hold>
+        <span class="scene-header-tag" style="color: #fca5a5; border-color: rgba(248, 113, 113, 0.4);">
+          Runtime Failure Injection
+        </span>
+        <h2 class="scene-headline">What happens when a worker server dies mid flight?</h2>
+        <p class="scene-sub">In standard queues, in flight tasks hang forever and data is lost. NexusQueue is engineered differently.</p>
+        <div class="card-terminal">
+          <div class="terminal-meta">
+            <span>NODE: worker alpha (PID 4920)</span>
+            <span class="badge-chip danger" id="crash-badge">PROCESSING WIRE TRANSFER</span>
+          </div>
+          <div class="terminal-row">
+            <span>Task ID: <code style="font-family: var(--font-mono); color: var(--accent);">tx 849204</code></span>
+            <span>Payload: $50,000 Institutional Wire Transfer</span>
+          </div>
+          <div class="terminal-row">
+            <span style="color: var(--text-secondary);">Heartbeat Telemetry:</span>
+            <div style="position: relative; width: 440px; text-align: right; font-family: var(--font-mono);">
+              <span id="heartbeat-ok" style="color: var(--success); position: absolute; right: 0;">Pulse 100ms OK</span>
+              <span id="heartbeat-missed" style="color: #fca5a5; position: absolute; right: 0; opacity: 0;">MISSED PULSE (WORKER OFFLINE)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scene 2: Watchdog Supervisor Failover (5s to 10s) -->
+      <div class="scene clip" id="scene-2" data-track-index="0" data-start="5" data-duration="5" data-hold>
+        <span class="scene-header-tag" style="color: var(--accent); border-color: rgba(56, 189, 248, 0.4);">
+          Automated Watchdog Recovery
+        </span>
+        <h2 class="scene-headline">Zero data loss watchdog heartbeat recovery.</h2>
+        <p class="scene-sub">Supervisor detects missed pulses within 3.5 seconds, reclaims the orphan task, and elevates priority.</p>
+        <div class="card-terminal">
+          <div class="terminal-meta">
+            <span>SUPERVISOR: Watchdog Monitor</span>
+            <span class="badge-chip accent">AUTOMATIC RESCUE</span>
+          </div>
+          <div class="terminal-row">
+            <span>Watchdog Action:</span>
+            <span style="font-family: var(--font-mono); color: var(--accent);">Reclaimed Orphan Task tx 849204</span>
+          </div>
+          <div class="terminal-row">
+            <span>Priority State:</span>
+            <span class="badge-chip danger">ELEVATED TO P0 CRITICAL</span>
+          </div>
+          <div class="terminal-row">
+            <span>Assigned Worker:</span>
+            <span style="font-family: var(--font-mono); color: var(--success);">Worker Beta: Execution Completed (Zero Loss)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scene 3: Kahn Topological DAG (10s to 15s) -->
+      <div class="scene clip" id="scene-3" data-track-index="0" data-start="10" data-duration="5" data-hold>
+        <span class="scene-header-tag" style="color: #d8b4fe; border-color: rgba(192, 132, 252, 0.4);">
+          DAG Workflow Engine
+        </span>
+        <h2 class="scene-headline">Parallel Kahn topological DAG scheduling.</h2>
+        <p class="scene-sub">Complex multi stage workflows resolve dependencies without promises or bottlenecks.</p>
+        <div class="dag-flow">
+          <div class="dag-node" id="dag-node-1">
+            <div style="font-size: 16px; color: var(--text-secondary); font-family: var(--font-mono);" data-layout-ignore>STAGE 1</div>
+            <div style="font-size: 24px; font-weight: 700; margin-top: 6px;">Data Extraction</div>
+            <span class="badge-chip success" style="margin-top: 12px; display: inline-block;">PASSED</span>
+          </div>
+          <div class="dag-arrow">➔</div>
+          <div class="dag-parallel-group">
+            <div class="dag-node" id="dag-node-2a">
+              <div style="font-size: 16px; color: var(--text-secondary); font-family: var(--font-mono);" data-layout-ignore>STAGE 2A (PARALLEL)</div>
+              <div style="font-size: 24px; font-weight: 700; margin-top: 6px;">Data Sanitization</div>
+              <span class="badge-chip accent" style="margin-top: 12px; display: inline-block;">EXECUTING</span>
+            </div>
+            <div class="dag-node" id="dag-node-2b">
+              <div style="font-size: 16px; color: var(--text-secondary); font-family: var(--font-mono);" data-layout-ignore>STAGE 2B (PARALLEL)</div>
+              <div style="font-size: 24px; font-weight: 700; margin-top: 6px;">ML Vector Scoring</div>
+              <span class="badge-chip accent" style="margin-top: 12px; display: inline-block;">EXECUTING</span>
+            </div>
+          </div>
+          <div class="dag-arrow">➔</div>
+          <div class="dag-node" id="dag-node-3">
+            <div style="font-size: 16px; color: var(--text-secondary); font-family: var(--font-mono);" data-layout-ignore>STAGE 3</div>
+            <div style="font-size: 24px; font-weight: 700; margin-top: 6px;">Warehouse Load</div>
+            <span class="badge-chip" style="margin-top: 12px; display: inline-block; background: var(--surface-raised); color: var(--text-secondary);">QUEUED</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scene 4: Telemetry SLA & Outro (15s to 20s) -->
+      <div class="scene clip" id="scene-4" data-track-index="0" data-start="15" data-duration="5" data-hold>
+        <span class="scene-header-tag" style="color: var(--success); border-color: rgba(52, 211, 153, 0.4);">
+          Production Benchmarks
+        </span>
+        <h2 class="scene-headline">Enterprise throughput. Sub millisecond precision.</h2>
+        <div class="stats-trio">
+          <div class="stat-box" id="sb-1">
+            <div class="stat-box-label">Enqueue Throughput</div>
+            <div class="stat-box-val">156k+</div>
+            <div class="stat-box-sub">tasks per sec</div>
+          </div>
+          <div class="stat-box" id="sb-2">
+            <div class="stat-box-label">Latency SLA (p50 / p99)</div>
+            <div class="stat-box-val" style="color: var(--accent);">34ms / 42ms</div>
+            <div class="stat-box-sub">rolling reservoir metric</div>
+          </div>
+          <div class="stat-box" id="sb-3">
+            <div class="stat-box-label">Task Loss Guarantee</div>
+            <div class="stat-box-val" style="color: var(--success);">0.00%</div>
+            <div class="stat-box-sub">zero dropped jobs</div>
+          </div>
+        </div>
+        <p style="margin-top: 36px; font-size: 26px; color: var(--text-secondary);">
+          Engineered by <strong style="color: var(--text-main);">Shamir Khan</strong> • Wilfrid Laurier University Computer Science
+        </p>
+      </div>
+
+    </div>
+
+    <div class="bottom-bar">
+      <span>Dual Broker Support: In Memory Min Heap + Redis Streams</span>
+      <span>Rate Limiter: Token Bucket + Sliding Window</span>
+      <span>Backoff: AWS Full Jitter</span>
+    </div>
+  </div>
+
+  <script>
+    const tl = gsap.timeline({ paused: true });
+
+    // Scene 1 animations
+    tl.from("#scene-1 .scene-headline", { y: 24, opacity: 0, duration: 0.5, ease: "power3.out" }, 0.2);
+    tl.from("#scene-1 .card-terminal", { y: 30, opacity: 0, duration: 0.5, ease: "power3.out" }, 0.4);
+    tl.to("#heartbeat-ok", { opacity: 0, duration: 0.1 }, 2.4);
+    tl.to("#heartbeat-missed", { opacity: 1, duration: 0.1 }, 2.4);
+    tl.to("#crash-badge", {
+      backgroundColor: "rgba(248, 113, 113, 0.2)",
+      color: "#f87171",
+      borderColor: "rgba(248, 113, 113, 0.6)",
+      duration: 0.1
+    }, 2.4);
+
+    // Scene 2 animations
+    tl.from("#scene-2 .scene-headline", { y: 24, opacity: 0, duration: 0.5, ease: "power3.out" }, 5.2);
+    tl.from("#scene-2 .card-terminal", { y: 30, opacity: 0, duration: 0.5, ease: "power3.out" }, 5.4);
+    tl.to("#scene-2 .card-terminal", { scale: 1.02, duration: 0.3, yoyo: true, repeat: 1, ease: "power2.inOut" }, 7.5);
+
+    // Scene 3 animations
+    tl.from("#scene-3 .scene-headline", { y: 24, opacity: 0, duration: 0.5, ease: "power3.out" }, 10.2);
+    tl.from("#dag-node-1", { x: -20, opacity: 0, duration: 0.4, ease: "power3.out" }, 10.4);
+    tl.from("#dag-node-2a", { y: -20, opacity: 0, duration: 0.4, ease: "power3.out" }, 10.7);
+    tl.from("#dag-node-2b", { y: 20, opacity: 0, duration: 0.4, ease: "power3.out" }, 10.9);
+    tl.from("#dag-node-3", { x: 20, opacity: 0, duration: 0.4, ease: "power3.out" }, 12.2);
+
+    // Scene 4 animations
+    tl.from("#scene-4 .scene-headline", { y: 24, opacity: 0, duration: 0.5, ease: "power3.out" }, 15.2);
+    tl.from("#sb-1", { y: 24, opacity: 0, duration: 0.4, ease: "power3.out" }, 15.4);
+    tl.from("#sb-2", { y: 24, opacity: 0, duration: 0.4, ease: "power3.out" }, 15.8);
+    tl.from("#sb-3", { y: 24, opacity: 0, duration: 0.4, ease: "power3.out" }, 16.2);
+    tl.to("#sb-1 .stat-box-val", { scale: 1.05, duration: 0.25, yoyo: true, repeat: 1, ease: "power2.inOut" }, 17.5);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["main"] = tl;
+    tl.seek(0);
+  </script>
+</body>
+</html>
